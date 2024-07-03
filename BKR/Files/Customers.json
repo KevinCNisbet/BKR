@@ -1,0 +1,47 @@
+[
+  {
+    "Customernummer": "CUST000000000001",
+    "Kredietnemernaam": "John Doe",
+    "Voorletters": "J",
+    "Prefix": "",
+    "Geboortedatum": "1980-01-01",
+    "Straat": "Main Street",
+    "Huisnummer": "123",
+    "Alfanumeriek1": "A",
+    "Postcode": "1234",
+    "Alfanumeriek2": "AB",
+    "Woonplaats": "CityOne",
+    "Geslacht": "M",
+    "LandCode": "NL"
+  },
+  {
+    "Customernummer": "CUST000000000002",
+    "Kredietnemernaam": "Jane Smith",
+    "Voorletters": "J",
+    "Prefix": "van",
+    "Geboortedatum": "1990-02-02",
+    "Straat": "Second Street",
+    "Huisnummer": "456",
+    "Alfanumeriek1": "B",
+    "Postcode": "5678",
+    "Alfanumeriek2": "CD",
+    "Woonplaats": "CityTwo",
+    "Geslacht": "F",
+    "LandCode": "US"
+  },
+  {
+    "Customernummer": "CUST000000000003",
+    "Kredietnemernaam": "Alice Johnson",
+    "Voorletters": "A",
+    "Prefix": "",
+    "Geboortedatum": "2000-03-03",
+    "Straat": "Third Street",
+    "Huisnummer": "789",
+    "Alfanumeriek1": "C",
+    "Postcode": "9012",
+    "Alfanumeriek2": "EF",
+    "Woonplaats": "CityThree",
+    "Geslacht": "F",
+    "LandCode": "UK"
+  }
+]
