@@ -9,9 +9,9 @@ namespace BKR.Processing
 {
     public class BKRProcessor
     {
-        public List<BKRClass> CombineData(List<Customer> customers, List<Contract> contracts)
+        public static List<BKRData> CombineData(List<Customer> customers, List<Contract> contracts)
         {
-            var bkrList = new List<BKRClass>();
+            var bkrList = new List<BKRData>();
 
             foreach (var contract in contracts)
             {
@@ -34,9 +34,9 @@ namespace BKR.Processing
             return bkrList;
         }
 
-        private BKRClass CreateBKRClass(Customer customer, Contract contract)
+        private static BKRData CreateBKRClass(Customer customer, Contract contract)
         {
-            return new BKRClass
+            return new BKRData
             {
                 Contract = contract.Contractnummer,
                 Kredietnemernaam = customer.Kredietnemernaam,
@@ -52,28 +52,12 @@ namespace BKR.Processing
                 Contractnummer = contract.Contractnummer,
                 Contractsoort = contract.Contractsoort,
                 Deelnemernummer = contract.Deelnemernummer,
-                Registratiedatum = contract.Registratiedatum,
-                DatumLaatsteMutatie = DateTime.Now, // Assuming current date for mutation date
                 LimietContractBedrag = contract.LimietContractBedrag,
                 Opnamebedrag = contract.Opnamebedrag,
                 DatumEersteAflossing = contract.DatumEersteAflossing,
                 DatumTLaatsteAflossing = contract.DatumTLaatsteAflossing,
                 DatumPLaatsteAflossing = contract.DatumPLaatsteAflossing,
                 IndicatieBKRAfgelost = contract.IndicatieBKRAfgelost,
-                AchterstCode1 = null, // Assuming null for Achterst codes
-                DatumAchterstCode1 = null,
-                AchterstCode2 = null,
-                DatumAchterstCode2 = null,
-                AchterstCode3 = null,
-                DatumAchterstCode3 = null,
-                AchterstCode4 = null,
-                DatumAchterstCode4 = null,
-                AchterstCode5 = null,
-                DatumAchterstCode5 = null,
-                AchterstCode6 = null,
-                DatumAchterstCode6 = null,
-                AchterstCode7 = null,
-                DatumAchterstCode7 = null,
                 Geslacht = customer.Geslacht,
                 LandCode = customer.LandCode
             };

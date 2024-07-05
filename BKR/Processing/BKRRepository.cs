@@ -12,15 +12,14 @@ namespace BKR.Processing
 {
     public class BKRRepository
     {
-        public static void InsertBKRList(List<BKRClass> bkrList)
+        public static void InsertBKRList(List<BKRData> bkrList, string BKRFile)
         {
             using (var connection = new SqlConnection(Constants.SQL_CONNECTION_STRING))
             {
                 connection.Open();
 
-                var sql = @"
-                INSERT INTO tblBKR_Class (
-                    Contract, Kredietnemernaam, Voorletters, Prefix, Geboortedatum, Straat, Huisnummer, 
+                var sql = "INSERT INTO " + BKRFile + @"
+                    (Contract, Kredietnemernaam, Voorletters, Prefix, Geboortedatum, Straat, Huisnummer, 
                     Alfanumeriek1, Postcode, Alfanumeriek2, Woonplaats, Contractnummer, Contractsoort, 
                     Deelnemernummer, Registratiedatum, DatumLaatsteMutatie, LimietContractBedrag, 
                     Opnamebedrag, DatumEersteAflossing, DatumTLaatsteAflossing, DatumPLaatsteAflossing, 

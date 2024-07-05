@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BKR.Classes
 {
-    public class BKRClass
+    public class BKRData
     {
         public string Contract { get; set; }
         public string Kredietnemernaam { get; set; }

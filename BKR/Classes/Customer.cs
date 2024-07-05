@@ -14,8 +14,8 @@ namespace BKR.Classes
         public string Prefix { get; set; }
         public DateTime Geboortedatum { get; set; }
         public string Straat { get; set; }
-        public string Huisnummer { get; set; }
         public string Alfanumeriek1 { get; set; }
+        public string Huisnummer { get; set; }
         public string Postcode { get; set; }
         public string Alfanumeriek2 { get; set; }
         public string Woonplaats { get; set; }

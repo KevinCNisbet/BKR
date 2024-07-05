@@ -13,7 +13,6 @@ namespace BKR.Classes
         public string Contractnummer { get; set; }
         public string Contractsoort { get; set; }
         public string Deelnemernummer { get; set; }
-        public DateTime Registratiedatum { get; set; }
         public decimal LimietContractBedrag { get; set; }
         public decimal Opnamebedrag { get; set; }
         public DateTime DatumEersteAflossing { get; set; }

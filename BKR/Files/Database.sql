@@ -1,4 +1,4 @@
-CREATE TABLE tblBKR_Class (
+CREATE TABLE tblBKR_Master (
     Contract VARCHAR(16),
     Kredietnemernaam VARCHAR(24),
     Voorletters VARCHAR(5),
@@ -39,6 +39,11 @@ CREATE TABLE tblBKR_Class (
     LandCode VARCHAR(3)
 );
 
+SELECT *
+INTO tblBKR_Delta
+FROM tblBKR_Master
+WHERE 1 = 0;
+
 CREATE TABLE tblCustomer (
     Customer VARCHAR(16),
     Kredietnemernaam VARCHAR(24),
@@ -46,8 +51,8 @@ CREATE TABLE tblCustomer (
     Prefix VARCHAR(8),
     Geboortedatum DATE,
     Straat VARCHAR(24),
-    Huisnummer VARCHAR(5),
     Alfanumeriek1 VARCHAR(5),
+    Huisnummer VARCHAR(5),
     Postcode VARCHAR(4),
     Alfanumeriek2 VARCHAR(2),
     Woonplaats VARCHAR(24),
@@ -62,7 +67,6 @@ CREATE TABLE tblContract (
     Contractnummer VARCHAR(16),
     Contractsoort VARCHAR(2),
     Deelnemernummer VARCHAR(7),
-    Registratiedatum DATE,
     LimietContractBedrag DECIMAL(8, 0),
     Opnamebedrag DECIMAL(8, 0),
     DatumEersteAflossing DATE,
@@ -72,3 +76,44 @@ CREATE TABLE tblContract (
 	NumberOfPaymentsMissed DECIMAL(4,0)
 );
 
+CREATE TABLE tblRegistration (
+    TransactionCode NVARCHAR(2),
+    Date NVARCHAR(8),
+    ParticipantNo NVARCHAR(7),
+    Customer NVARCHAR(12),
+    Kredietnemernaam NVARCHAR(24),
+    Voorletters NVARCHAR(5),
+    Voornaam NVARCHAR(12),
+    Prefix NVARCHAR(8),
+    Geboortedatum NVARCHAR(8),
+    Geslacht NVARCHAR(1),
+    Straat NVARCHAR(24),
+    Huisnummer NVARCHAR(5),
+    Alfanumeriek1 NVARCHAR(5),
+    Woonplaats NVARCHAR(24),
+    Postcode NVARCHAR(4),
+    Alfanumeriek2 NVARCHAR(2),
+    LandCode NVARCHAR(3),
+    GeboortedatumNieuw NVARCHAR(8),
+    Contractsoort NVARCHAR(3),
+    Contract NVARCHAR(16),
+    ContractNieuw NVARCHAR(16),
+    LimietContractBedrag NVARCHAR(8),
+    Opnamebedrag NVARCHAR(8),
+    DatumEersteAflossing NVARCHAR(8),
+    DatumTLaatstAflossing NVARCHAR(8),
+    DatumPLaatstAflossing NVARCHAR(8),
+    SpecialCode NVARCHAR(1),
+    RegRegistrDate NVARCHAR(8),
+    JointContract NVARCHAR(1),
+    NewName NVARCHAR(24),
+    CodeRemovalReason NVARCHAR(2),
+    BestandCode NVARCHAR(2)
+);
+
+
+select * from tblBKR_Master;
+select * from tblBKR_Delta;
+select * from tblContract;
+select * from tblCustomer;
+select * from tblRegistration;
