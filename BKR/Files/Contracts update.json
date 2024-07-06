@@ -1,0 +1,30 @@
+[
+  {
+    "Customer1": "CUST003",
+    "Customer2": "CUST004",
+    "Contractnummer": "CNTR004",
+    "Contractsoort": "RK",
+    "Deelnemernummer": "9000100",
+    "LimietContractBedrag": 5000,
+    "Opnamebedrag": 5000,
+    "DatumEersteAflossing": "2023-04-01",
+    "DatumTLaatsteAflossing": "2024-01-01",
+    "DatumPLaatsteAflossing": "2024-06-01",
+    "IndicatieBKRAfgelost": "N",
+    "NumberOfPaymentsMissed": 0
+  },
+  {
+    "Customer1": "CUST003",
+    "Customer2": "",
+    "Contractnummer": "CNTR002",
+    "Contractsoort": "RK",
+    "Deelnemernummer": "9000100",
+    "LimietContractBedrag": 75000,
+    "Opnamebedrag": 30000,
+    "DatumEersteAflossing": "2023-03-15",
+    "DatumTLaatsteAflossing": "2024-02-15",
+    "DatumPLaatsteAflossing": "2024-07-15",
+    "IndicatieBKRAfgelost": "Y",
+    "NumberOfPaymentsMissed": 0
+  }
+]

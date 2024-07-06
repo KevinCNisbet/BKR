@@ -1,6 +1,6 @@
 [
   {
-    "Customernummer": "CUST000000000001",
+    "Customernummer": "CUST001",
     "Kredietnemernaam": "Joosten",
     "Voorletters": "V",
     "Prefix": "",
@@ -15,7 +15,7 @@
     "LandCode": "NLD"
   },
   {
-    "Customernummer": "CUST000000000002",
+    "Customernummer": "CUST002",
     "Kredietnemernaam": "Mulder",
     "Voorletters": "J",
     "Prefix": "van",
@@ -30,7 +30,7 @@
     "LandCode": "NLD"
   },
   {
-    "Customernummer": "CUST000000000003",
+    "Customernummer": "CUST003",
     "Kredietnemernaam": "Wel",
     "Voorletters": "A",
     "Prefix": "de",

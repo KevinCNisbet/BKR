@@ -45,7 +45,7 @@ FROM tblBKR_Master
 WHERE 1 = 0;
 
 CREATE TABLE tblCustomer (
-    Customer VARCHAR(16),
+    Customernummer VARCHAR(16),
     Kredietnemernaam VARCHAR(24),
     Voorletters VARCHAR(5),
     Prefix VARCHAR(8),
@@ -80,6 +80,7 @@ CREATE TABLE tblRegistration (
     TransactionCode NVARCHAR(2),
     Date NVARCHAR(8),
     ParticipantNo NVARCHAR(7),
+    ParticipantNo2 NVARCHAR(7),
     Customer NVARCHAR(12),
     Kredietnemernaam NVARCHAR(24),
     Voorletters NVARCHAR(5),

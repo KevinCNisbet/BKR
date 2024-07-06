@@ -20,13 +20,14 @@ namespace BKR.Processing
             {
                 var registration = new Registration
                 {
-                    TransactionCode = "TD", // No direct mapping
+                    TransactionCode = "01", // No direct mapping
                     Date = bkrData.Registratiedatum?.ToString("yyyyMMdd") ?? "",
                     ParticipantNo = bkrData.Deelnemernummer,
-                    Customer = "TODO", // No direct mapping
+                    ParticipantNo2 = "",
+                    Customer = "", // No direct mapping
                     Kredietnemernaam = bkrData.Kredietnemernaam,
                     Voorletters = bkrData.Voorletters,
-                    Voornaam = "TODO", // No direct mapping
+                    Voornaam = "", // No direct mapping
                     Prefix = bkrData.Prefix,
                     Geboortedatum = bkrData.Geboortedatum.ToString("yyyyMMdd"),
                     Geslacht = bkrData.Geslacht,
@@ -37,21 +38,21 @@ namespace BKR.Processing
                     Postcode = bkrData.Postcode,
                     Alfanumeriek2 = bkrData.Alfanumeriek2,
                     LandCode = bkrData.LandCode,
-                    GeboortedatumNieuw = "TODO", // No direct mapping
+                    GeboortedatumNieuw = "", // No direct mapping
                     Contractsoort = bkrData.Contractsoort,
                     Contract = bkrData.Contract,
-                    ContractNieuw = bkrData.Contractnummer,
+                    ContractNieuw = "",
                     LimietContractBedrag = ((int)Math.Floor(bkrData.LimietContractBedrag)).ToString(CultureInfo.InvariantCulture),
                     Opnamebedrag = ((int)Math.Floor(bkrData.Opnamebedrag)).ToString(CultureInfo.InvariantCulture),
                     DatumEersteAflossing = bkrData.DatumEersteAflossing?.ToString("yyyyMMdd") ?? "",
                     DatumTLaatstAflossing = bkrData.DatumTLaatsteAflossing?.ToString("yyyyMMdd") ?? "",
                     DatumPLaatstAflossing = bkrData.DatumPLaatsteAflossing?.ToString("yyyyMMdd") ?? "",
-                    SpecialCode = "T", // No direct mapping
+                    SpecialCode = "", // No direct mapping
                     RegRegistrDate = bkrData.Registratiedatum?.ToString("yyyyMMdd") ?? "",
-                    JointContract = "T", // No direct mapping
-                    NewName = "TD", // No direct mapping
-                    CodeRemovalReason = "TD", // No direct mapping
-                    BestandCode = "TD" // No direct mapping
+                    JointContract = "", // No direct mapping
+                    NewName = "", // No direct mapping
+                    CodeRemovalReason = "", // No direct mapping
+                    BestandCode = "DE" // No direct mapping
                 };
 
                 registrationList.Add(registration);
@@ -71,6 +72,7 @@ INSERT INTO tblRegistration (
     TransactionCode,
     Date,
     ParticipantNo,
+    ParticipantNo2,
     Customer,
     Kredietnemernaam,
     Voorletters,
@@ -104,6 +106,7 @@ INSERT INTO tblRegistration (
     @TransactionCode,
     @Date,
     @ParticipantNo,
+    @ParticipantNo2,
     @Customer,
     @Kredietnemernaam,
     @Voorletters,

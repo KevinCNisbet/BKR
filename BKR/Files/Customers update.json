@@ -1,0 +1,32 @@
+[
+  {
+    "Customernummer": "CUST001",
+    "Kredietnemernaam": "Joosten",
+    "Voorletters": "V",
+    "Prefix": "",
+    "Geboortedatum": "1980-01-01",
+    "Straat": "Schapenlaan",
+    "Huisnummer": "111",
+    "Alfanumeriek1": "",
+    "Postcode": "2512",
+    "Alfanumeriek2": "HT",
+    "Woonplaats": "DEN HAAG",
+    "Geslacht": "M",
+    "LandCode": "NLD"
+  },
+  {
+    "Customernummer": "CUST004",
+    "Kredietnemernaam": "Klaasen",
+    "Voorletters": "H",
+    "Prefix": "",
+    "Geboortedatum": "1990-04-04",
+    "Straat": "Koedikk",
+    "Huisnummer": "40",
+    "Alfanumeriek1": "",
+    "Postcode": "3224",
+    "Alfanumeriek2": "LD",
+    "Woonplaats": "HELLEVOETSLUIS",
+    "Geslacht": "V",
+    "LandCode": "NLD"
+  }
+]

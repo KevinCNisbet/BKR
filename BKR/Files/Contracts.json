@@ -1,10 +1,10 @@
 [
   {
-    "Customer1": "CUST000000000001",
-    "Customer2": "CUST000000000002",
-    "Contractnummer": "CNTR123456789012",
+    "Customer1": "CUST001",
+    "Customer2": "CUST002",
+    "Contractnummer": "CNTR001",
     "Contractsoort": "AK",
-    "Deelnemernummer": "DLN0001",
+    "Deelnemernummer": "9000100",
     "LimietContractBedrag": 50000,
     "Opnamebedrag": 20000,
     "DatumEersteAflossing": "2023-02-01",
@@ -14,11 +14,11 @@
     "NumberOfPaymentsMissed": 0
   },
   {
-    "Customer1": "CUST000000000003",
+    "Customer1": "CUST003",
     "Customer2": "",
-    "Contractnummer": "CNTR234567890123",
+    "Contractnummer": "CNTR002",
     "Contractsoort": "RK",
-    "Deelnemernummer": "DLN0002",
+    "Deelnemernummer": "9000100",
     "LimietContractBedrag": 75000,
     "Opnamebedrag": 30000,
     "DatumEersteAflossing": "2023-03-15",
@@ -28,17 +28,17 @@
     "NumberOfPaymentsMissed": 1
   },
   {
-    "Customer1": "CUST000000000001",
+    "Customer1": "CUST001",
     "Customer2": "",
-    "Contractnummer": "CNTR345678901234",
+    "Contractnummer": "CNTR003",
     "Contractsoort": "AK",
-    "Deelnemernummer": "DLN0003",
+    "Deelnemernummer": "9000100",
     "LimietContractBedrag": 100000,
     "Opnamebedrag": 50000,
     "DatumEersteAflossing": "2023-04-20",
     "DatumTLaatsteAflossing": "2024-03-20",
     "DatumPLaatsteAflossing": "2024-08-20",
-    "IndicatieBKRAfgelost": "Y",
+    "IndicatieBKRAfgelost": "N",
     "NumberOfPaymentsMissed": 2
   }
 ]

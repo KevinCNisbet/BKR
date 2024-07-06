@@ -11,6 +11,7 @@ namespace BKR.Classes
         public string TransactionCode { get; set; }
         public string Date { get; set; }
         public string ParticipantNo { get; set; }
+        public string ParticipantNo2 { get; set; }
         public string Customer { get; set; }
         public string Kredietnemernaam { get; set; }
         public string Voorletters { get; set; }
