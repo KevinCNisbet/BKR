@@ -23,17 +23,8 @@ namespace BKR
             List<Customer> customers = LoadCustomersFromJson(filePath);
             SaveCustomersToDatabase(customers, Constants.SQL_CONNECTION_STRING);
 
-            filePath = @"C:\Users\kevin\source\repos\BKR\BKR\Files\customers update.json";
-            customers = LoadCustomersFromJson(filePath);
-            SaveCustomersToDatabase(customers, Constants.SQL_CONNECTION_STRING);
-
-
             filePath = @"C:\Users\kevin\source\repos\BKR\BKR\Files\contracts.json";
             List<Contract> contracts = LoadContractsFromJson(filePath);
-            SaveContractsToDatabase(contracts, Constants.SQL_CONNECTION_STRING);
-
-            filePath = @"C:\Users\kevin\source\repos\BKR\BKR\Files\contracts update.json";
-            contracts = LoadContractsFromJson(filePath);
             SaveContractsToDatabase(contracts, Constants.SQL_CONNECTION_STRING);
 
             customers = GetAllCustomers(Constants.SQL_CONNECTION_STRING);
@@ -42,9 +33,29 @@ namespace BKR
             var bkrList = BKRProcessor.CombineData(customers, contracts);
             BKRRepository.InsertBKRList(bkrList, "tblBKR_Delta");
 
-            var RegistrationList = BKRRegistration.ConvertBKRDataToRegistrations(bkrList);
+            BKRRegistration.CompareAndRegisterChanges(Constants.SQL_CONNECTION_STRING);
 
-            BKRRegistration.InsertRegistrations(RegistrationList);
+
+            filePath = @"C:\Users\kevin\source\repos\BKR\BKR\Files\customers update.json";
+            customers = LoadCustomersFromJson(filePath);
+            SaveCustomersToDatabase(customers, Constants.SQL_CONNECTION_STRING);
+
+            filePath = @"C:\Users\kevin\source\repos\BKR\BKR\Files\contracts update.json";
+            contracts = LoadContractsFromJson(filePath);
+            SaveContractsToDatabase(contracts, Constants.SQL_CONNECTION_STRING);
+
+            customers = GetAllCustomers(Constants.SQL_CONNECTION_STRING);
+            contracts = GetAllContracts(Constants.SQL_CONNECTION_STRING);
+
+            bkrList = BKRProcessor.CombineData(customers, contracts);
+            BKRRepository.InsertBKRList(bkrList, "tblBKR_Delta");
+
+            BKRRegistration.CompareAndRegisterChanges(Constants.SQL_CONNECTION_STRING);
+
+            //var RegistrationList = BKRRegistration.ConvertBKRDataToRegistrations(bkrList);
+
+            //BKRRegistration.InsertRegistrations(RegistrationList);
+
         }
         public static List<Customer> GetAllCustomers(string connectionString)
         {
