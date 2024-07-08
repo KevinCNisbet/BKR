@@ -28,17 +28,20 @@ namespace BKR.Processing
                     if (master == null)
                     {
                         // No matching row in tblBKRMaster, insert with TransactionCode 01
-                        var registration = CreateRegistration(delta, "01");
-                        InsertRegistration(connection, registration);
+                        InsertRegistration(connection, CreateRegistration(delta, new BKRTransaction("01", "")));
                     }
                     else
                     {
+
                         // Matching row found, check for differences
                         if (!IsEqual(master, delta))
                         {
                             // There are differences, insert with TransactionCode 02
-                            var registration = CreateRegistration(delta, "02");
-                            InsertRegistration(connection, registration);
+                            List<BKRTransaction> bKRTransactions = master.DetermineBKRTransactions(delta);
+                            foreach (var bKRTransaction in bKRTransactions)
+                            {
+                                InsertRegistration(connection, CreateRegistration(delta, bKRTransaction)); ;
+                            }
                         }
                     }
                 }
@@ -47,6 +50,7 @@ namespace BKR.Processing
                 connection.Execute("Select Top 0 * into tblBKR_Delta from tblBKR_Master;");
             }
         }
+
 
         private static bool IsEqual(BKRData master, BKRData delta)
         {
@@ -88,11 +92,11 @@ namespace BKR.Processing
                    master.LandCode == delta.LandCode;
         }
 
-        private static Registration CreateRegistration(BKRData data, string transactionCode)
+        private static Registration CreateRegistration(BKRData data, BKRTransaction bKRTransaction)
         {
             return new Registration
             {
-                TransactionCode = transactionCode,
+                TransactionCode = bKRTransaction.TransactionCode,
                 Date = "",
                 ParticipantNo = data.Deelnemernummer,
                 ParticipantNo2 = "",
@@ -117,7 +121,7 @@ namespace BKR.Processing
                 DatumEersteAflossing = data.DatumEersteAflossing?.ToString("yyyyMMdd") ?? "",
                 DatumTLaatstAflossing = data.DatumTLaatsteAflossing?.ToString("yyyyMMdd") ?? "",
                 DatumPLaatstAflossing = data.DatumPLaatsteAflossing?.ToString("yyyyMMdd") ?? "",
-                SpecialCode = "", // No direct mapping
+                SpecialCode = bKRTransaction.SpecialCode,
                 RegRegistrDate = "",
                 JointContract = "", // No direct mapping
                 NewName = "", // No direct mapping

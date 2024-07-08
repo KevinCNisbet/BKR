@@ -46,5 +46,72 @@ namespace BKR.Classes
         public DateTime? DatumAchterstCode7 { get; set; }
         public string Geslacht { get; set; }
         public string LandCode { get; set; }
+
+        public List<BKRTransaction> DetermineBKRTransactions(BKRData delta)
+        {
+            Contract contract = BKR.Classes.Contract.GetContract(Constants.SQL_CONNECTION_STRING, this.Contractnummer);
+
+            List<BKRTransaction> bKRTransactions = new();
+            if (this.Straat != delta.Straat ||
+                   this.Huisnummer != delta.Huisnummer ||
+                   this.Alfanumeriek1 != delta.Alfanumeriek1 ||
+                   this.Postcode != delta.Postcode ||
+                   this.Alfanumeriek2 != delta.Alfanumeriek2 ||
+                   this.Woonplaats != delta.Woonplaats
+                   ) 
+            { 
+                bKRTransactions.Add(new BKRTransaction("05", ""));
+            }
+            if (this.DatumTLaatsteAflossing != delta.DatumTLaatsteAflossing)
+            {
+                bKRTransactions.Add(new BKRTransaction("09", ""));
+            }
+            if (contract.IndicatieBKRAfgelost == "Y" && this.IndicatieBKRAfgelost == "N")
+            {
+                this.IndicatieBKRAfgelost = "Y";
+                bKRTransactions.Add(new BKRTransaction("02", ""));
+            }
+            return bKRTransactions;
+        }
+
+        public bool IsEqual(BKRData delta)
+        {
+            return this.Kredietnemernaam == delta.Kredietnemernaam &&
+                   this.Voorletters == delta.Voorletters &&
+                   this.Prefix == delta.Prefix &&
+                   this.Straat == delta.Straat &&
+                   this.Huisnummer == delta.Huisnummer &&
+                   this.Alfanumeriek1 == delta.Alfanumeriek1 &&
+                   this.Postcode == delta.Postcode &&
+                   this.Alfanumeriek2 == delta.Alfanumeriek2 &&
+                   this.Woonplaats == delta.Woonplaats &&
+                   this.Contractnummer == delta.Contractnummer &&
+                   this.Contractsoort == delta.Contractsoort &&
+                   this.Deelnemernummer == delta.Deelnemernummer &&
+                   this.Registratiedatum == delta.Registratiedatum &&
+                   this.DatumLaatsteMutatie == delta.DatumLaatsteMutatie &&
+                   this.LimietContractBedrag == delta.LimietContractBedrag &&
+                   this.Opnamebedrag == delta.Opnamebedrag &&
+                   this.DatumEersteAflossing == delta.DatumEersteAflossing &&
+                   this.DatumTLaatsteAflossing == delta.DatumTLaatsteAflossing &&
+                   this.DatumPLaatsteAflossing == delta.DatumPLaatsteAflossing &&
+                   this.IndicatieBKRAfgelost == delta.IndicatieBKRAfgelost &&
+                   this.AchterstCode1 == delta.AchterstCode1 &&
+                   this.DatumAchterstCode1 == delta.DatumAchterstCode1 &&
+                   this.AchterstCode2 == delta.AchterstCode2 &&
+                   this.DatumAchterstCode2 == delta.DatumAchterstCode2 &&
+                   this.AchterstCode3 == delta.AchterstCode3 &&
+                   this.DatumAchterstCode3 == delta.DatumAchterstCode3 &&
+                   this.AchterstCode4 == delta.AchterstCode4 &&
+                   this.DatumAchterstCode4 == delta.DatumAchterstCode4 &&
+                   this.AchterstCode5 == delta.AchterstCode5 &&
+                   this.DatumAchterstCode5 == delta.DatumAchterstCode5 &&
+                   this.AchterstCode6 == delta.AchterstCode6 &&
+                   this.DatumAchterstCode6 == delta.DatumAchterstCode6 &&
+                   this.AchterstCode7 == delta.AchterstCode7 &&
+                   this.DatumAchterstCode7 == delta.DatumAchterstCode7 &&
+                   this.Geslacht == delta.Geslacht &&
+                   this.LandCode == delta.LandCode;
+        }
     }
 }

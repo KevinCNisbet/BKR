@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +22,16 @@ namespace BKR.Classes
         public DateTime DatumPLaatsteAflossing { get; set; }
         public string IndicatieBKRAfgelost { get; set; }
         public decimal NumberOfPaymentsMissed { get; set; }
-    }
 
-}
+
+        public static Contract GetContract(string connectionString, string contractNummer)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string sql = "SELECT * FROM tblContract WHERE Contractnummer = @Contractnummer";
+                return connection.QueryFirstOrDefault<Contract>(sql, new { Contractnummer = contractNummer });
+            }
+        }
+    }
+    }
