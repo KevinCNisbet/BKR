@@ -52,6 +52,18 @@ namespace BKR
 
             BKRRegistration.CompareAndRegisterChanges(Constants.SQL_CONNECTION_STRING);
 
+            filePath = @"C:\Users\kevin\source\repos\BKR\BKR\Files\contracts update 2.json";
+            contracts = LoadContractsFromJson(filePath);
+            SaveContractsToDatabase(contracts, Constants.SQL_CONNECTION_STRING);
+
+            customers = GetAllCustomers(Constants.SQL_CONNECTION_STRING);
+            contracts = GetAllContracts(Constants.SQL_CONNECTION_STRING);
+
+            bkrList = BKRProcessor.CombineData(customers, contracts);
+            BKRRepository.InsertBKRList(bkrList, "tblBKR_Delta");
+
+            BKRRegistration.CompareAndRegisterChanges(Constants.SQL_CONNECTION_STRING);
+
             //var RegistrationList = BKRRegistration.ConvertBKRDataToRegistrations(bkrList);
 
             //BKRRegistration.InsertRegistrations(RegistrationList);

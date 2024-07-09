@@ -21,7 +21,7 @@
     "Deelnemernummer": "9000100",
     "LimietContractBedrag": 75000,
     "Opnamebedrag": 30000,
-    "DatumEersteAflossing": "2023-03-15",
+    "DatumEersteAflossing": "2023-03-28",
     "DatumTLaatsteAflossing": "2024-03-15",
     "DatumPLaatsteAflossing": "2024-07-15",
     "IndicatieBKRAfgelost": "N",
@@ -40,5 +40,19 @@
     "DatumPLaatsteAflossing": "2024-06-01",
     "IndicatieBKRAfgelost": "Y",
     "NumberOfPaymentsMissed": 0
+  },
+  {
+    "Customer1": "CUST001",
+    "Customer2": "",
+    "Contractnummer": "CNTR003",
+    "Contractsoort": "AK",
+    "Deelnemernummer": "9000100",
+    "LimietContractBedrag": 100000,
+    "Opnamebedrag": 50000,
+    "DatumEersteAflossing": "2023-04-20",
+    "DatumTLaatsteAflossing": "2024-03-20",
+    "DatumPLaatsteAflossing": "2024-08-20",
+    "IndicatieBKRAfgelost": "N",
+    "NumberOfPaymentsMissed": 3
   }
 ]

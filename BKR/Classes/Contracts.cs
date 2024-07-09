@@ -22,6 +22,7 @@ namespace BKR.Classes
         public DateTime DatumPLaatsteAflossing { get; set; }
         public string IndicatieBKRAfgelost { get; set; }
         public decimal NumberOfPaymentsMissed { get; set; }
+        public string IndicatieSpecialCode { get; set; }
 
 
         public static Contract GetContract(string connectionString, string contractNummer)
@@ -33,5 +34,24 @@ namespace BKR.Classes
                 return connection.QueryFirstOrDefault<Contract>(sql, new { Contractnummer = contractNummer });
             }
         }
+        public static void UpdateContractTable(string connectionString, string contractNummer, string newIndicatieAchterstCode)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string updateQuery = @"
+                    UPDATE tblContract
+                    SET IndicatieSpecialCode = @IndicatieAchterstCode
+                    WHERE Contractnummer = @Contractnummer;";
+
+                var parameters = new
+                {
+                    IndicatieAchterstCode = newIndicatieAchterstCode,
+                    Contractnummer = contractNummer
+                };
+
+                int rowsAffected = connection.Execute(updateQuery, parameters);
+            }
+        }
     }
-    }
+}

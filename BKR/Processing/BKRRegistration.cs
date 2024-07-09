@@ -14,6 +14,7 @@ namespace BKR.Processing
     {
         public static void CompareAndRegisterChanges(string connectionString)
         {
+            Contract contract = new();
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -32,16 +33,14 @@ namespace BKR.Processing
                     }
                     else
                     {
-
+                        if (delta.Contractnummer != contract.Contractnummer)
+                        { contract = BKR.Classes.Contract.GetContract(Constants.SQL_CONNECTION_STRING, delta.Contractnummer); }
                         // Matching row found, check for differences
-                        if (!IsEqual(master, delta))
+                        // There are differences, insert with TransactionCode 02
+                        List<BKRTransaction> bKRTransactions = master.DetermineBKRTransactions(delta, contract);
+                        foreach (var bKRTransaction in bKRTransactions)
                         {
-                            // There are differences, insert with TransactionCode 02
-                            List<BKRTransaction> bKRTransactions = master.DetermineBKRTransactions(delta);
-                            foreach (var bKRTransaction in bKRTransactions)
-                            {
-                                InsertRegistration(connection, CreateRegistration(delta, bKRTransaction)); ;
-                            }
+                            InsertRegistration(connection, CreateRegistration(delta, bKRTransaction)); ;
                         }
                     }
                 }
@@ -74,20 +73,20 @@ namespace BKR.Processing
                    master.DatumTLaatsteAflossing == delta.DatumTLaatsteAflossing &&
                    master.DatumPLaatsteAflossing == delta.DatumPLaatsteAflossing &&
                    master.IndicatieBKRAfgelost == delta.IndicatieBKRAfgelost &&
-                   master.AchterstCode1 == delta.AchterstCode1 &&
-                   master.DatumAchterstCode1 == delta.DatumAchterstCode1 &&
-                   master.AchterstCode2 == delta.AchterstCode2 &&
-                   master.DatumAchterstCode2 == delta.DatumAchterstCode2 &&
-                   master.AchterstCode3 == delta.AchterstCode3 &&
-                   master.DatumAchterstCode3 == delta.DatumAchterstCode3 &&
-                   master.AchterstCode4 == delta.AchterstCode4 &&
-                   master.DatumAchterstCode4 == delta.DatumAchterstCode4 &&
-                   master.AchterstCode5 == delta.AchterstCode5 &&
-                   master.DatumAchterstCode5 == delta.DatumAchterstCode5 &&
-                   master.AchterstCode6 == delta.AchterstCode6 &&
-                   master.DatumAchterstCode6 == delta.DatumAchterstCode6 &&
-                   master.AchterstCode7 == delta.AchterstCode7 &&
-                   master.DatumAchterstCode7 == delta.DatumAchterstCode7 &&
+                   //master.AchterstCode1 == delta.AchterstCode1 &&
+                   //master.DatumAchterstCode1 == delta.DatumAchterstCode1 &&
+                   //master.AchterstCode2 == delta.AchterstCode2 &&
+                   //master.DatumAchterstCode2 == delta.DatumAchterstCode2 &&
+                   //master.AchterstCode3 == delta.AchterstCode3 &&
+                   //master.DatumAchterstCode3 == delta.DatumAchterstCode3 &&
+                   //master.AchterstCode4 == delta.AchterstCode4 &&
+                   //master.DatumAchterstCode4 == delta.DatumAchterstCode4 &&
+                   //master.AchterstCode5 == delta.AchterstCode5 &&
+                   //master.DatumAchterstCode5 == delta.DatumAchterstCode5 &&
+                   //master.AchterstCode6 == delta.AchterstCode6 &&
+                   //master.DatumAchterstCode6 == delta.DatumAchterstCode6 &&
+                   //master.AchterstCode7 == delta.AchterstCode7 &&
+                   //master.DatumAchterstCode7 == delta.DatumAchterstCode7 &&
                    master.Geslacht == delta.Geslacht &&
                    master.LandCode == delta.LandCode;
         }

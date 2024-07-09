@@ -23,18 +23,20 @@ namespace BKR.Processing
                     Alfanumeriek1, Postcode, Alfanumeriek2, Woonplaats, Contractnummer, Contractsoort, 
                     Deelnemernummer, Registratiedatum, DatumLaatsteMutatie, LimietContractBedrag, 
                     Opnamebedrag, DatumEersteAflossing, DatumTLaatsteAflossing, DatumPLaatsteAflossing, 
-                    IndicatieBKRAfgelost, AchterstCode1, DatumAchterstCode1, AchterstCode2, DatumAchterstCode2, 
-                    AchterstCode3, DatumAchterstCode3, AchterstCode4, DatumAchterstCode4, AchterstCode5, 
-                    DatumAchterstCode5, AchterstCode6, DatumAchterstCode6, AchterstCode7, DatumAchterstCode7, 
+                    IndicatieBKRAfgelost, IndicatieAchterstCode,
+                    --AchterstCode1, DatumAchterstCode1, AchterstCode2, DatumAchterstCode2, 
+                    --AchterstCode3, DatumAchterstCode3, AchterstCode4, DatumAchterstCode4, AchterstCode5, 
+                    --DatumAchterstCode5, AchterstCode6, DatumAchterstCode6, AchterstCode7, DatumAchterstCode7, 
                     Geslacht, LandCode)
                 VALUES (
                     @Contract, @Kredietnemernaam, @Voorletters, @Prefix, @Geboortedatum, @Straat, @Huisnummer, 
                     @Alfanumeriek1, @Postcode, @Alfanumeriek2, @Woonplaats, @Contractnummer, @Contractsoort, 
                     @Deelnemernummer, @Registratiedatum, @DatumLaatsteMutatie, @LimietContractBedrag, 
                     @Opnamebedrag, @DatumEersteAflossing, @DatumTLaatsteAflossing, @DatumPLaatsteAflossing, 
-                    @IndicatieBKRAfgelost, @AchterstCode1, @DatumAchterstCode1, @AchterstCode2, @DatumAchterstCode2, 
-                    @AchterstCode3, @DatumAchterstCode3, @AchterstCode4, @DatumAchterstCode4, @AchterstCode5, 
-                    @DatumAchterstCode5, @AchterstCode6, @DatumAchterstCode6, @AchterstCode7, @DatumAchterstCode7, 
+                    @IndicatieBKRAfgelost, @IndicatieAchterstCode,
+                    --@AchterstCode1, @DatumAchterstCode1, @AchterstCode2, @DatumAchterstCode2, 
+                    --@AchterstCode3, @DatumAchterstCode3, @AchterstCode4, @DatumAchterstCode4, @AchterstCode5, 
+                    --@DatumAchterstCode5, @AchterstCode6, @DatumAchterstCode6, @AchterstCode7, @DatumAchterstCode7, 
                     @Geslacht, @LandCode);";
 
                 connection.Execute(sql, bkrList);
