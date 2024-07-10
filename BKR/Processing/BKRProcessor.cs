@@ -20,47 +20,15 @@ namespace BKR.Processing
 
                 if (customer1 != null)
                 {
-                    var bkr1 = CreateBKRClass(customer1, contract);
-                    bkrList.Add(bkr1);
+                    bkrList.Add(new BKRData(customer1, contract));
                 }
 
                 if (customer2 != null && !string.IsNullOrEmpty(contract.Customer2))
                 {
-                    var bkr2 = CreateBKRClass(customer2, contract);
-                    bkrList.Add(bkr2);
+                    bkrList.Add(new BKRData(customer2, contract));
                 }
             }
-
             return bkrList;
-        }
-
-        private static BKRData CreateBKRClass(Customer customer, Contract contract)
-        {
-            return new BKRData
-            {
-                Contract = contract.Contractnummer,
-                Kredietnemernaam = customer.Kredietnemernaam,
-                Voorletters = customer.Voorletters,
-                Prefix = customer.Prefix,
-                Geboortedatum = customer.Geboortedatum,
-                Straat = customer.Straat,
-                Huisnummer = customer.Huisnummer,
-                Alfanumeriek1 = customer.Alfanumeriek1,
-                Postcode = customer.Postcode,
-                Alfanumeriek2 = customer.Alfanumeriek2,
-                Woonplaats = customer.Woonplaats,
-                Contractnummer = contract.Contractnummer,
-                Contractsoort = contract.Contractsoort,
-                Deelnemernummer = contract.Deelnemernummer,
-                LimietContractBedrag = contract.LimietContractBedrag,
-                Opnamebedrag = contract.Opnamebedrag,
-                DatumEersteAflossing = contract.DatumEersteAflossing,
-                DatumTLaatsteAflossing = contract.DatumTLaatsteAflossing,
-                DatumPLaatsteAflossing = contract.DatumPLaatsteAflossing,
-                IndicatieBKRAfgelost = contract.IndicatieBKRAfgelost,
-                Geslacht = customer.Geslacht,
-                LandCode = customer.LandCode
-            };
         }
     }
 }

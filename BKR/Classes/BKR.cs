@@ -50,10 +50,34 @@ namespace BKR.Classes
         public string Geslacht { get; set; }
         public string LandCode { get; set; }
 
+        public BKRData() {}
+            public BKRData(Customer customer, Contract contract)
+        {
+            Contract = contract.Contractnummer;
+            Kredietnemernaam = customer.Kredietnemernaam;
+            Voorletters = customer.Voorletters;
+            Prefix = customer.Prefix;
+            Geboortedatum = customer.Geboortedatum;
+            Straat = customer.Straat;
+            Huisnummer = customer.Huisnummer;
+            Alfanumeriek1 = customer.Alfanumeriek1;
+            Postcode = customer.Postcode;
+            Alfanumeriek2 = customer.Alfanumeriek2;
+            Woonplaats = customer.Woonplaats;
+            Contractnummer = contract.Contractnummer;
+            Contractsoort = contract.Contractsoort;
+            Deelnemernummer = contract.Deelnemernummer;
+            LimietContractBedrag = contract.LimietContractBedrag;
+            Opnamebedrag = contract.Opnamebedrag;
+            DatumEersteAflossing = contract.DatumEersteAflossing;
+            DatumTLaatsteAflossing = contract.DatumTLaatsteAflossing;
+            DatumPLaatsteAflossing = contract.DatumPLaatsteAflossing;
+            IndicatieBKRAfgelost = contract.IndicatieBKRAfgelost;
+            Geslacht = customer.Geslacht;
+            LandCode = customer.LandCode;
+        }
         public List<BKRTransaction> DetermineBKRTransactions(BKRData delta, Contract contract)
         {
-            
-
             List<BKRTransaction> bKRTransactions = new();
             if (this.Straat != delta.Straat ||
                    this.Huisnummer != delta.Huisnummer ||
@@ -61,8 +85,8 @@ namespace BKR.Classes
                    this.Postcode != delta.Postcode ||
                    this.Alfanumeriek2 != delta.Alfanumeriek2 ||
                    this.Woonplaats != delta.Woonplaats
-                   ) 
-            { 
+                   )
+            {
                 bKRTransactions.Add(new BKRTransaction("05", ""));
             }
             if (this.DatumTLaatsteAflossing != delta.DatumTLaatsteAflossing)
@@ -113,7 +137,7 @@ namespace BKR.Classes
                 };
 
                 int rowsAffected = connection.Execute(updateQuery, parameters);
-                
+
                 updateQuery = @"
                     UPDATE tblContract
                     SET IndicatieSpecialCode = @IndicatieAchterstCode
@@ -128,44 +152,36 @@ namespace BKR.Classes
                 rowsAffected = connection.Execute(updateQuery, parameters);
             }
         }
-        public bool IsEqual(BKRData delta)
+       
+        public static void InsertBKRList(List<BKRData> bkrList, string BKRFile)
         {
-            return this.Kredietnemernaam == delta.Kredietnemernaam &&
-                   this.Voorletters == delta.Voorletters &&
-                   this.Prefix == delta.Prefix &&
-                   this.Straat == delta.Straat &&
-                   this.Huisnummer == delta.Huisnummer &&
-                   this.Alfanumeriek1 == delta.Alfanumeriek1 &&
-                   this.Postcode == delta.Postcode &&
-                   this.Alfanumeriek2 == delta.Alfanumeriek2 &&
-                   this.Woonplaats == delta.Woonplaats &&
-                   this.Contractnummer == delta.Contractnummer &&
-                   this.Contractsoort == delta.Contractsoort &&
-                   this.Deelnemernummer == delta.Deelnemernummer &&
-                   this.Registratiedatum == delta.Registratiedatum &&
-                   this.DatumLaatsteMutatie == delta.DatumLaatsteMutatie &&
-                   this.LimietContractBedrag == delta.LimietContractBedrag &&
-                   this.Opnamebedrag == delta.Opnamebedrag &&
-                   this.DatumEersteAflossing == delta.DatumEersteAflossing &&
-                   this.DatumTLaatsteAflossing == delta.DatumTLaatsteAflossing &&
-                   this.DatumPLaatsteAflossing == delta.DatumPLaatsteAflossing &&
-                   this.IndicatieBKRAfgelost == delta.IndicatieBKRAfgelost &&
-                   //this.AchterstCode1 == delta.AchterstCode1 &&
-                   //this.DatumAchterstCode1 == delta.DatumAchterstCode1 &&
-                   //this.AchterstCode2 == delta.AchterstCode2 &&
-                   //this.DatumAchterstCode2 == delta.DatumAchterstCode2 &&
-                   //this.AchterstCode3 == delta.AchterstCode3 &&
-                   //this.DatumAchterstCode3 == delta.DatumAchterstCode3 &&
-                   //this.AchterstCode4 == delta.AchterstCode4 &&
-                   //this.DatumAchterstCode4 == delta.DatumAchterstCode4 &&
-                   //this.AchterstCode5 == delta.AchterstCode5 &&
-                   //this.DatumAchterstCode5 == delta.DatumAchterstCode5 &&
-                   //this.AchterstCode6 == delta.AchterstCode6 &&
-                   //this.DatumAchterstCode6 == delta.DatumAchterstCode6 &&
-                   //this.AchterstCode7 == delta.AchterstCode7 &&
-                   //this.DatumAchterstCode7 == delta.DatumAchterstCode7 &&
-                   this.Geslacht == delta.Geslacht &&
-                   this.LandCode == delta.LandCode;
+            using (var connection = new SqlConnection(Constants.SQL_CONNECTION_STRING))
+            {
+                connection.Open();
+
+                var sql = "INSERT INTO " + BKRFile + @"
+                    (Contract, Kredietnemernaam, Voorletters, Prefix, Geboortedatum, Straat, Huisnummer, 
+                    Alfanumeriek1, Postcode, Alfanumeriek2, Woonplaats, Contractnummer, Contractsoort, 
+                    Deelnemernummer, Registratiedatum, DatumLaatsteMutatie, LimietContractBedrag, 
+                    Opnamebedrag, DatumEersteAflossing, DatumTLaatsteAflossing, DatumPLaatsteAflossing, 
+                    IndicatieBKRAfgelost, IndicatieAchterstCode,
+                    --AchterstCode1, DatumAchterstCode1, AchterstCode2, DatumAchterstCode2, 
+                    --AchterstCode3, DatumAchterstCode3, AchterstCode4, DatumAchterstCode4, AchterstCode5, 
+                    --DatumAchterstCode5, AchterstCode6, DatumAchterstCode6, AchterstCode7, DatumAchterstCode7, 
+                    Geslacht, LandCode)
+                VALUES (
+                    @Contract, @Kredietnemernaam, @Voorletters, @Prefix, @Geboortedatum, @Straat, @Huisnummer, 
+                    @Alfanumeriek1, @Postcode, @Alfanumeriek2, @Woonplaats, @Contractnummer, @Contractsoort, 
+                    @Deelnemernummer, @Registratiedatum, @DatumLaatsteMutatie, @LimietContractBedrag, 
+                    @Opnamebedrag, @DatumEersteAflossing, @DatumTLaatsteAflossing, @DatumPLaatsteAflossing, 
+                    @IndicatieBKRAfgelost, @IndicatieAchterstCode,
+                    --@AchterstCode1, @DatumAchterstCode1, @AchterstCode2, @DatumAchterstCode2, 
+                    --@AchterstCode3, @DatumAchterstCode3, @AchterstCode4, @DatumAchterstCode4, @AchterstCode5, 
+                    --@DatumAchterstCode5, @AchterstCode6, @DatumAchterstCode6, @AchterstCode7, @DatumAchterstCode7, 
+                    @Geslacht, @LandCode);";
+
+                connection.Execute(sql, bkrList);
+            }
         }
     }
 }

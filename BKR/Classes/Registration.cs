@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,5 +44,59 @@ namespace BKR.Classes
         public string NewName { get; set; }
         public string CodeRemovalReason { get; set; }
         public string BestandCode { get; set; }
+        public Registration(BKRData data, BKRTransaction bKRTransaction)
+        {
+            TransactionCode = bKRTransaction.TransactionCode;
+            Date = "";
+            ParticipantNo = data.Deelnemernummer;
+            ParticipantNo2 = "";
+            Kredietnemernaam = data.Kredietnemernaam;
+            Voorletters = data.Voorletters;
+            Voornaam = "";
+            Prefix = data.Prefix;
+            Geboortedatum = data.Geboortedatum.ToString("yyyyMMdd");
+            GeboortedatumNieuw = "";
+            Geslacht = data.Geslacht;
+            Straat = data.Straat;
+            Huisnummer = data.Huisnummer;
+            Alfanumeriek1 = data.Alfanumeriek1;
+            Woonplaats = data.Woonplaats;
+            Postcode = data.Postcode;
+            Alfanumeriek2 = data.Alfanumeriek2;
+            LandCode = data.LandCode;
+            Contractsoort = data.Contractsoort;
+            Contract = data.Contract;
+            LimietContractBedrag = ((int)Math.Floor(data.LimietContractBedrag)).ToString(CultureInfo.InvariantCulture);
+            Opnamebedrag = ((int)Math.Floor(data.Opnamebedrag)).ToString(CultureInfo.InvariantCulture);
+            DatumEersteAflossing = data.DatumEersteAflossing?.ToString("yyyyMMdd") ?? "";
+            DatumTLaatstAflossing = data.DatumTLaatsteAflossing?.ToString("yyyyMMdd") ?? "";
+            DatumPLaatstAflossing = data.DatumPLaatsteAflossing?.ToString("yyyyMMdd") ?? "";
+            SpecialCode = bKRTransaction.SpecialCode;
+            RegRegistrDate = "";
+            JointContract = ""; // No direct mapping
+            NewName = ""; // No direct mapping
+            CodeRemovalReason = ""; // No direct mapping
+            BestandCode = "DE"; // No direct mapping
+        }
+
+        public void InsertRegistration(SqlConnection connection)
+        {
+            string sql = @"
+            INSERT INTO tblRegistration (
+                TransactionCode, Date, ParticipantNo, ParticipantNo2, Customer, Kredietnemernaam, 
+                Voorletters, Voornaam, Prefix, Geboortedatum, Geslacht, Straat, Huisnummer, Alfanumeriek1, 
+                Woonplaats, Postcode, Alfanumeriek2, LandCode, GeboortedatumNieuw, Contractsoort, Contract, 
+                ContractNieuw, LimietContractBedrag, Opnamebedrag, DatumEersteAflossing, DatumTLaatstAflossing, 
+                DatumPLaatstAflossing, SpecialCode, RegRegistrDate, JointContract, NewName, CodeRemovalReason, BestandCode
+            ) VALUES (
+                @TransactionCode, @Date, @ParticipantNo, @ParticipantNo2, @Customer, @Kredietnemernaam, 
+                @Voorletters, @Voornaam, @Prefix, @Geboortedatum, @Geslacht, @Straat, @Huisnummer, @Alfanumeriek1, 
+                @Woonplaats, @Postcode, @Alfanumeriek2, @LandCode, @GeboortedatumNieuw, @Contractsoort, @Contract, 
+                @ContractNieuw, @LimietContractBedrag, @Opnamebedrag, @DatumEersteAflossing, @DatumTLaatstAflossing, 
+                @DatumPLaatstAflossing, @SpecialCode, @RegRegistrDate, @JointContract, @NewName, @CodeRemovalReason, @BestandCode
+            )";
+
+            connection.Execute(sql, this);
+        }
     }
 }
