@@ -12,6 +12,31 @@ namespace BKR.Processing
 {
     public class BKRRegistration
     {
+        public static void BKRDailyProcessing(string customerFile, string contractFile)
+        {
+            List<Customer> customers = new();
+            List<Contract> contracts = new();
+            
+            if (customerFile != "")
+            {
+                customers = Customer.LoadCustomersFromJson(customerFile);
+                Customer.SaveCustomersToDatabase(customers, Constants.SQL_CONNECTION_STRING);
+            }
+
+            if (contractFile != "")
+            {
+                contracts = Contract.LoadContractsFromJson(contractFile);
+                Contract.SaveContractsToDatabase(contracts, Constants.SQL_CONNECTION_STRING);
+            }
+
+            customers = Customer.GetAllCustomers(Constants.SQL_CONNECTION_STRING);
+            contracts = Contract.GetAllContracts(Constants.SQL_CONNECTION_STRING);
+
+            var bkrList = BKRData.CombineData(customers, contracts);
+            BKRData.InsertBKRList(bkrList, "tblBKR_Delta");
+
+            CompareAndRegisterChanges(Constants.SQL_CONNECTION_STRING);
+        }
         public static void CompareAndRegisterChanges(string connectionString)
         {
             Contract contract = new();

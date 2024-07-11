@@ -25,6 +25,24 @@ namespace BKR.Classes
         public string Geslacht { get; set; }
         public string LandCode { get; set; }
         public Customer() { }
+        public Customer(string customernummer, string kredietnemernaam, string voorletters, string prefix, DateTime geboortedatum,
+                        string straat, string alfanumeriek1, string huisnummer, string postcode, string alfanumeriek2,
+                        string woonplaats, string geslacht, string landCode)
+        {
+            Customernummer = customernummer;
+            Kredietnemernaam = kredietnemernaam;
+            Voorletters = voorletters;
+            Prefix = prefix;
+            Geboortedatum = geboortedatum;
+            Straat = straat;
+            Alfanumeriek1 = alfanumeriek1;
+            Huisnummer = huisnummer;
+            Postcode = postcode;
+            Alfanumeriek2 = alfanumeriek2;
+            Woonplaats = woonplaats;
+            Geslacht = geslacht;
+            LandCode = landCode;
+        }
         public static List<Customer> GetAllCustomers(string connectionString)
         {
             using (var connection = new SqlConnection(connectionString))

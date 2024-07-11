@@ -50,8 +50,8 @@ namespace BKR.Classes
         public string Geslacht { get; set; }
         public string LandCode { get; set; }
 
-        public BKRData() {}
-            public BKRData(Customer customer, Contract contract)
+        public BKRData() { }
+        public BKRData(Customer customer, Contract contract)
         {
             Contract = contract.Contractnummer;
             Kredietnemernaam = customer.Kredietnemernaam;
@@ -152,7 +152,7 @@ namespace BKR.Classes
                 rowsAffected = connection.Execute(updateQuery, parameters);
             }
         }
-       
+
         public static void InsertBKRList(List<BKRData> bkrList, string BKRFile)
         {
             using (var connection = new SqlConnection(Constants.SQL_CONNECTION_STRING))
@@ -183,5 +183,28 @@ namespace BKR.Classes
                 connection.Execute(sql, bkrList);
             }
         }
+
+        public static List<BKRData> CombineData(List<Customer> customers, List<Contract> contracts)
+        {
+            var bkrList = new List<BKRData>();
+
+            foreach (var contract in contracts)
+            {
+                var customer1 = customers.FirstOrDefault(c => c.Customernummer == contract.Customer1);
+                var customer2 = customers.FirstOrDefault(c => c.Customernummer == contract.Customer2);
+
+                if (customer1 != null)
+                {
+                    bkrList.Add(new BKRData(customer1, contract));
+                }
+
+                if (customer2 != null && !string.IsNullOrEmpty(contract.Customer2))
+                {
+                    bkrList.Add(new BKRData(customer2, contract));
+                }
+            }
+            return bkrList;
+        }
+
     }
 }
