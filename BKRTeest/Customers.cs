@@ -25,17 +25,15 @@ namespace BKRTest
         public void Dispose()
         {
             // Ensure the database is clean after running tests
-            //CleanupDatabase();
+            CleanupDatabase();
         }
 
         [Fact]
         public void TestCustomersWrittenToDatabaseCorrectly()
         {
+            TestData testData = new TestData();
             // Set up expected results
-            List<Customer> expectedCustomers = new();
-            expectedCustomers.Add(new Customer("CUST001", "Joosten", "V", "", new DateTime(1980, 1, 1), "Zandweg", "", "31", "3233", "ET", "OOSTVORNE", "M", "NLD"));
-            expectedCustomers.Add(new Customer("CUST002", "Mulder", "J", "van", new DateTime(1990, 2, 2), "De Matestraat", "", "293", "7447", "BA", "OVERIJSSEL", "V", "NLD"));
-            expectedCustomers.Add(new Customer("CUST003", "Wel", "A", "de", new DateTime(2000, 3, 3), "Sint Michaelstraat", "A", "26", "5861", "BV", "LIMBURG", "V", "NLD"));
+            List<Customer> expectedCustomers = new() {testData.customer1, testData.customer2, testData.customer3};
 
             // Load customers from JSON file
             List<Customer> actualCustomers = Customer.LoadCustomersFromJson(JsonFilePath);
@@ -49,6 +47,7 @@ namespace BKRTest
         }
         private void AssertEqualCustomers(List<Customer> expectedCustomers, List<Customer> actualCustomers)
         {
+            Assert.Equal(expectedCustomers.Count, actualCustomers.Count);
             foreach (var expectedCustomer in expectedCustomers)
             {
                 var actualCustomer = actualCustomers.SingleOrDefault(c => c.Customernummer == expectedCustomer.Customernummer);

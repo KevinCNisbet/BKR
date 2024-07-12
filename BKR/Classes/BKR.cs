@@ -51,6 +51,34 @@ namespace BKR.Classes
         public string LandCode { get; set; }
 
         public BKRData() { }
+        public BKRData(string contract, string kredietnemernaam, string voorletters, string prefix, DateTime geboortedatum, string straat, string huisnummer, string alfanumeriek1, string postcode, string alfanumeriek2, string woonplaats, string contractnummer, string contractsoort, string deelnemernummer, DateTime? registratiedatum, DateTime? datumLaatsteMutatie, decimal limietContractBedrag, decimal opnamebedrag, DateTime? datumEersteAflossing, DateTime? datumTLaatsteAflossing, DateTime? datumPLaatsteAflossing, string indicatieBKRAfgelost, string indicatieAchterstCode, string geslacht, string landCode)
+        {
+            Contract = contract;
+            Kredietnemernaam = kredietnemernaam;
+            Voorletters = voorletters;
+            Prefix = prefix;
+            Geboortedatum = geboortedatum;
+            Straat = straat;
+            Huisnummer = huisnummer;
+            Alfanumeriek1 = alfanumeriek1;
+            Postcode = postcode;
+            Alfanumeriek2 = alfanumeriek2;
+            Woonplaats = woonplaats;
+            Contractnummer = contractnummer;
+            Contractsoort = contractsoort;
+            Deelnemernummer = deelnemernummer;
+            Registratiedatum = registratiedatum;
+            DatumLaatsteMutatie = datumLaatsteMutatie;
+            LimietContractBedrag = limietContractBedrag;
+            Opnamebedrag = opnamebedrag;
+            DatumEersteAflossing = datumEersteAflossing;
+            DatumTLaatsteAflossing = datumTLaatsteAflossing;
+            DatumPLaatsteAflossing = datumPLaatsteAflossing;
+            IndicatieBKRAfgelost = indicatieBKRAfgelost;
+            IndicatieAchterstCode = indicatieAchterstCode;
+            Geslacht = geslacht;
+            LandCode = landCode;
+        }
         public BKRData(Customer customer, Contract contract)
         {
             Contract = contract.Contractnummer;
@@ -204,6 +232,16 @@ namespace BKR.Classes
                 }
             }
             return bkrList;
+        }
+        public static List<BKRData> GetAllBKRData(string connectionString)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string sql = "SELECT * FROM tblBKR_Master";
+                var bKRDatas = connection.Query<BKRData>(sql).AsList();
+                return bKRDatas;
+            }
         }
 
     }

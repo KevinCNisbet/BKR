@@ -26,6 +26,24 @@ namespace BKR.Classes
         public string IndicatieSpecialCode { get; set; }
 
         public Contract() { }
+        public Contract(string customer1, string customer2, string contractnummer, string contractsoort, string deelnemernummer,
+        decimal limietContractBedrag, decimal opnamebedrag, DateTime datumEersteAflossing, DateTime datumTLaatsteAflossing,
+        DateTime datumPLaatsteAflossing, string indicatieBKRAfgelost, decimal numberOfPaymentsMissed,string indicatieSpecialCode)
+        {
+            Customer1 = customer1;
+            Customer2 = customer2;
+            Contractnummer = contractnummer;
+            Contractsoort = contractsoort;
+            Deelnemernummer = deelnemernummer;
+            LimietContractBedrag = limietContractBedrag;
+            Opnamebedrag = opnamebedrag;
+            DatumEersteAflossing = datumEersteAflossing;
+            DatumTLaatsteAflossing = datumTLaatsteAflossing;
+            DatumPLaatsteAflossing = datumPLaatsteAflossing;
+            IndicatieBKRAfgelost = indicatieBKRAfgelost;
+            NumberOfPaymentsMissed = numberOfPaymentsMissed;
+            IndicatieSpecialCode = indicatieSpecialCode;
+        }
         public static Contract GetContract(string connectionString, string contractNummer)
         {
             using (var connection = new SqlConnection(connectionString))
