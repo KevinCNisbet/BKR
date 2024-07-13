@@ -31,6 +31,8 @@ namespace BKRTest
         [Fact]
         public void TestCustomersWrittenToDatabaseCorrectly()
         {
+            CleanupDatabase();
+
             TestData testData = new TestData();
             // Set up expected results
             List<Customer> expectedCustomers = new() {testData.customer1, testData.customer2, testData.customer3};

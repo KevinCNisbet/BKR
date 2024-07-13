@@ -44,12 +44,59 @@ namespace BKR.Classes
         public string NewName { get; set; }
         public string CodeRemovalReason { get; set; }
         public string BestandCode { get; set; }
+        
+        public Registration(
+        string transactionCode, string date, string participantNo, string participantNo2, string customer,
+        string kredietnemernaam, string voorletters, string voornaam, string prefix, string geboortedatum,
+        string geslacht, string straat, string huisnummer, string alfanumeriek1, string woonplaats,
+        string postcode, string alfanumeriek2, string landCode, string geboortedatumNieuw, string contractsoort,
+        string contract, string contractNieuw, string limietContractBedrag, string opnamebedrag,
+        string datumEersteAflossing, string datumTLaatstAflossing, string datumPLaatstAflossing,
+        string specialCode, string regRegistrDate, string jointContract, string newName,
+        string codeRemovalReason, string bestandCode)
+        {
+            TransactionCode = transactionCode;
+            Date = date;
+            ParticipantNo = participantNo;
+            ParticipantNo2 = participantNo2;
+            Customer = customer;
+            Kredietnemernaam = kredietnemernaam;
+            Voorletters = voorletters;
+            Voornaam = voornaam;
+            Prefix = prefix;
+            Geboortedatum = geboortedatum;
+            Geslacht = geslacht;
+            Straat = straat;
+            Huisnummer = huisnummer;
+            Alfanumeriek1 = alfanumeriek1;
+            Woonplaats = woonplaats;
+            Postcode = postcode;
+            Alfanumeriek2 = alfanumeriek2;
+            LandCode = landCode;
+            GeboortedatumNieuw = geboortedatumNieuw;
+            Contractsoort = contractsoort;
+            Contract = contract;
+            ContractNieuw = contractNieuw;
+            LimietContractBedrag = limietContractBedrag;
+            Opnamebedrag = opnamebedrag;
+            DatumEersteAflossing = datumEersteAflossing;
+            DatumTLaatstAflossing = datumTLaatstAflossing;
+            DatumPLaatstAflossing = datumPLaatstAflossing;
+            SpecialCode = specialCode;
+            RegRegistrDate = regRegistrDate;
+            JointContract = jointContract;
+            NewName = newName;
+            CodeRemovalReason = codeRemovalReason;
+            BestandCode = bestandCode;
+        }
+    
         public Registration(BKRData data, BKRTransaction bKRTransaction)
         {
             TransactionCode = bKRTransaction.TransactionCode;
             Date = "";
             ParticipantNo = data.Deelnemernummer;
             ParticipantNo2 = "";
+            Customer = "";
             Kredietnemernaam = data.Kredietnemernaam;
             Voorletters = data.Voorletters;
             Voornaam = "";
@@ -66,6 +113,7 @@ namespace BKR.Classes
             LandCode = data.LandCode;
             Contractsoort = data.Contractsoort;
             Contract = data.Contract;
+            ContractNieuw = "";
             LimietContractBedrag = ((int)Math.Floor(data.LimietContractBedrag)).ToString(CultureInfo.InvariantCulture);
             Opnamebedrag = ((int)Math.Floor(data.Opnamebedrag)).ToString(CultureInfo.InvariantCulture);
             DatumEersteAflossing = data.DatumEersteAflossing?.ToString("yyyyMMdd") ?? "";
@@ -97,6 +145,16 @@ namespace BKR.Classes
             )";
 
             connection.Execute(sql, this);
+        }
+        public static List<Registration> GetAllRegistrations(string connectionString)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string sql = "SELECT * FROM tblRegistration";
+                var registrations = connection.Query<Registration>(sql).AsList();
+                return registrations;
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BKR.Classes;
+using BKR.Processing;
 
 namespace BKRTest
 {
@@ -29,5 +30,15 @@ namespace BKRTest
 
         public BKRData bkrData3 = new BKRData("CNTR003", "Joosten", "V", "", new DateTime(1980, 1, 1), "Zandweg", "31", "", "3233", "ET", "OOSTVORNE", "CNTR003", "AK", "9000100", null, null, 100000m, 50000m, 
             new DateTime(2023, 4, 20), new DateTime(2024, 3, 20), new DateTime(2024, 8, 20), "N", null, "M", "NLD");
+
+        public Registration registration1 = new Registration("01", "", "9000100", "", "", "Joosten", "V", "", "", "19800101", "M", "Zandweg", "31", "", "OOSTVORNE", "3233", "ET", "NLD", 
+            "", "AK", "CNTR001", "", "50000", "20000", "20230201", "20240101", "20240601", "", "", "", "", "", "DE");
+        public Registration registration2 = new Registration("01", "", "9000100", "", "", "Mulder",  "J", "", "van", "19900202", "V", "De Matestraat", "293", "", "OVERIJSSEL", "7447", "BA", "NLD", 
+            "", "AK", "CNTR001", "", "50000", "20000", "20230201", "20240101", "20240601", "", "", "", "", "", "DE");
+        public Registration registration3 = new Registration("01", "", "9000100", "", "",  "Wel", "A", "", "de", "20000303", "V", "Sint Michaelstraat", "26", "A", "LIMBURG", "5861", "BV", "NLD", 
+            "", "RK", "CNTR002", "", "75000", "30000", "20230315", "20240215", "20240715", "", "", "", "", "", "DE");
+        public Registration registration4 = new Registration("01", "", "9000100", "", "",  "Joosten", "V", "", "", "19800101", "M", "Zandweg", "31", "", "OOSTVORNE", "3233", "ET", "NLD", 
+            "", "AK", "CNTR003", "", "100000", "50000", "20230420", "20240320", "20240820", "", "", "", "", "","DE");
+
     }
 }
