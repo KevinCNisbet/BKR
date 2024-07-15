@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BKR", "BKR\BKR.csproj", "{445BF1B0-0EA4-411F-A435-24994D9D8D47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKRTeest", "BKRTeest\BKRTeest.csproj", "{B5010AF6-9AF6-476B-A0FC-A338BE48F3B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BKRTest", "BKRTeest\BKRTest.csproj", "{B5010AF6-9AF6-476B-A0FC-A338BE48F3B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

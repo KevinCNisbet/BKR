@@ -22,11 +22,11 @@ namespace BKR
             BKRRegistration.BKRDailyProcessing(@"C:\Users\kevin\source\repos\BKR\BKR\Files\customers.json",
                 @"C:\Users\kevin\source\repos\BKR\BKR\Files\contracts.json");
 
-            //BKRRegistration.BKRDailyProcessing(@"C:\Users\kevin\source\repos\BKR\BKR\Files\customers update.json",
-            //    @"C:\Users\kevin\source\repos\BKR\BKR\Files\contracts update.json");
+            BKRRegistration.BKRDailyProcessing(@"C:\Users\kevin\source\repos\BKR\BKR\Files\customers update.json",
+                @"C:\Users\kevin\source\repos\BKR\BKR\Files\contracts update.json");
 
-            //BKRRegistration.BKRDailyProcessing("", 
-            //    @"C:\Users\kevin\source\repos\BKR\BKR\Files\contracts update 2.json");
+            BKRRegistration.BKRDailyProcessing("",
+                @"C:\Users\kevin\source\repos\BKR\BKR\Files\contracts update 2.json");
         }
     }
 }

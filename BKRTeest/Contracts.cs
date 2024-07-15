@@ -13,6 +13,9 @@ namespace BKRTest
     public class ContractTests : IDisposable
     {
         private const string JsonFilePath = @"C:\\Users\\kevin\\source\\repos\\BKR\\BKR\\Files\\Contracts.json";
+        private const string JsonFilePath2 = @"C:\\Users\\kevin\\source\\repos\\BKR\\BKR\\Files\\Contracts update.json";
+        private const string JsonFilePath3 = @"C:\\Users\\kevin\\source\\repos\\BKR\\BKR\\Files\\Contracts update 2.json";
+
 
         // This method runs before each test
         public ContractTests()
@@ -32,16 +35,43 @@ namespace BKRTest
         public void TestContractsWrittenToDatabaseCorrectly()
         {
             TestData testData = new TestData();
-            // Set up expected results
+            // Load file of new contracts
             List<Contract> expectedContracts = new() { testData.contract1, testData.contract2, testData.contract3 };
-
-            // Load Contracts from JSON file
             List<Contract> actualContracts = Contract.LoadContractsFromJson(JsonFilePath);
             AssertEqualContracts(expectedContracts, actualContracts);
 
-            // Save Contracts to the database
+            // Save and retrieve contracts from database
             Contract.SaveContractsToDatabase(expectedContracts, Constants.SQL_CONNECTION_STRING);
-            // Retrieve Contracts from the database
+            actualContracts = Contract.GetAllContracts(Constants.SQL_CONNECTION_STRING);
+            AssertEqualContracts(expectedContracts, actualContracts);
+
+            // Change expected results
+            expectedContracts.Add(testData.contract4);
+            testData.contract1.IndicatieBKRAfgelost = "Y";
+            testData.contract2.DatumEersteAflossing = new DateTime(2023, 03, 28);
+            testData.contract2.DatumTLaatsteAflossing = new DateTime(2024, 03, 15);
+            testData.contract2.NumberOfPaymentsMissed = 1;
+            testData.contract3.NumberOfPaymentsMissed = 3;
+            // Process JSON file of contract changes
+            actualContracts = Contract.LoadContractsFromJson(JsonFilePath2);
+            AssertEqualContracts(expectedContracts, actualContracts);
+
+            // Save and retrieve from database
+            Contract.SaveContractsToDatabase(expectedContracts, Constants.SQL_CONNECTION_STRING);
+            actualContracts = Contract.GetAllContracts(Constants.SQL_CONNECTION_STRING);
+            AssertEqualContracts(expectedContracts, actualContracts);
+
+            // Change expected results
+            testData.contract4.NumberOfPaymentsMissed = 3;
+            testData.contract3.NumberOfPaymentsMissed = 0;
+            expectedContracts = new() { testData.contract3, testData.contract4 };
+            // Process JSON file of contract changes
+            actualContracts = Contract.LoadContractsFromJson(JsonFilePath3);
+            AssertEqualContracts(expectedContracts, actualContracts);
+
+            // Save and retrieve from database
+            Contract.SaveContractsToDatabase(expectedContracts, Constants.SQL_CONNECTION_STRING);
+            expectedContracts = new() { testData.contract1, testData.contract2, testData.contract3, testData.contract4 }; 
             actualContracts = Contract.GetAllContracts(Constants.SQL_CONNECTION_STRING);
             AssertEqualContracts(expectedContracts, actualContracts);
         }

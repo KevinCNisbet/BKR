@@ -1,5 +1,6 @@
 [
   {
+    "_Comment": "Address has changed",
     "Customernummer": "CUST001",
     "Kredietnemernaam": "Joosten",
     "Voorletters": "V",
@@ -15,6 +16,7 @@
     "LandCode": "NLD"
   },
   {
+    "_Comment": "New customer",
     "Customernummer": "CUST004",
     "Kredietnemernaam": "Klaasen",
     "Voorletters": "H",

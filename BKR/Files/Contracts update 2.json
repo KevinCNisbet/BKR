@@ -1,5 +1,6 @@
 [
   {
+    "_Comment": "Contract has recovered completely from arrears",
     "Customer1": "CUST001",
     "Customer2": "",
     "Contractnummer": "CNTR003",
@@ -14,6 +15,7 @@
     "NumberOfPaymentsMissed": 0
   },
   {
+    "_Comment": "Contract has arrears of 3 payments",
     "Customer1": "CUST003",
     "Customer2": "CUST004",
     "Contractnummer": "CNTR004",

@@ -16,6 +16,12 @@ namespace BKRTest
         private const string JsonFilePathContracts = @"C:\\Users\\kevin\\source\\repos\\BKR\\BKR\\Files\\Contracts.json";
         private const string JsonFilePathCusts = @"C:\\Users\\kevin\\source\\repos\\BKR\\BKR\\Files\\Customers.json";
 
+        private const string JsonFilePathContracts2 = @"C:\\Users\\kevin\\source\\repos\\BKR\\BKR\\Files\\Contracts update.json";
+        private const string JsonFilePathCusts2 = @"C:\\Users\\kevin\\source\\repos\\BKR\\BKR\\Files\\Customers update.json";
+
+        private const string JsonFilePathContracts3 = @"C:\\Users\\kevin\\source\\repos\\BKR\\BKR\\Files\\Contracts update 2.json";
+
+
         // This method runs before each test
         public BKRDataTests()
         {
@@ -36,7 +42,7 @@ namespace BKRTest
         {
             CleanupDatabase();
             TestData testData = new TestData();
-            // Set up expected results
+            // Run 1 - new customers/contracts
             List<BKRData> expectedBKRData = new() { testData.bkrData1, testData.bkrData1_2, testData.bkrData2, testData.bkrData3 };
 
             BKRRegistration.BKRDailyProcessing(JsonFilePathCusts, JsonFilePathContracts);
@@ -48,18 +54,51 @@ namespace BKRTest
             List<Registration> actualRegistrations = Registration.GetAllRegistrations(Constants.SQL_CONNECTION_STRING);
 
             AssertEqualRegistration(expectedRegistrations, actualRegistrations);
-        }
-        //[Fact]
-        // TODO Test on combining
-        //public void TestRegistrationDataWrittenToDatabaseCorrectly()
-        //{
-        //    TestData testData = new TestData();
-        //    // Set up expected results
-        //    List<Registration> expectedRegistrations = new() { testData.registration1, testData.registration2, testData.registration3, testData.registration4 };
-        //    List<Registration> actualRegistrations = Registration.GetAllRegistrations(Constants.SQL_CONNECTION_STRING);
 
-        //    AssertEqualRegistration(expectedRegistrations, actualRegistrations);
-        //}
+            // Run 2 - new customer/contract and some changes
+            expectedBKRData.Add(testData.bkrData4);
+            expectedBKRData.Add(testData.bkrData4_2);
+            testData.bkrData1.Woonplaats = "DEN HAAG";
+            testData.bkrData1.Straat = "Schapenlaan";
+            testData.bkrData1.Postcode = "2512";
+            testData.bkrData1.Alfanumeriek2 = "HT";
+            testData.bkrData1.Huisnummer = "111";
+            testData.bkrData3.Woonplaats = "DEN HAAG";
+            testData.bkrData3.Straat = "Schapenlaan";
+            testData.bkrData3.Postcode = "2512";
+            testData.bkrData3.Alfanumeriek2 = "HT";
+            testData.bkrData3.Huisnummer = "111";
+            testData.bkrData1.IndicatieBKRAfgelost = "Y";
+            testData.bkrData1_2.IndicatieBKRAfgelost = "Y";
+            testData.bkrData2.DatumEersteAflossing = new DateTime(2023, 03, 28);
+            testData.bkrData2.DatumTLaatsteAflossing = new DateTime(2024, 03, 15);
+            testData.bkrData3.IndicatieAchterstCode = "A";
+
+            BKRRegistration.BKRDailyProcessing(JsonFilePathCusts2, JsonFilePathContracts2);
+
+            actualBKRData = BKRData.GetAllBKRData(Constants.SQL_CONNECTION_STRING);
+            AssertEqualBKRData(expectedBKRData, actualBKRData);
+
+            expectedRegistrations.AddRange(new[] { testData.registration5, testData.registration6, testData.registration7, testData.registration8, 
+                testData.registration9, testData.registration10, testData.registration11, testData.registration12, testData.registration13 });
+            actualRegistrations = Registration.GetAllRegistrations(Constants.SQL_CONNECTION_STRING);
+            AssertEqualRegistration(expectedRegistrations, actualRegistrations);
+
+            // Run 3 - changes in Arrears Staus
+            testData.bkrData3.IndicatieAchterstCode = "";
+            testData.bkrData4.IndicatieAchterstCode = "A";
+            testData.bkrData4_2.IndicatieAchterstCode = "A";
+
+            BKRRegistration.BKRDailyProcessing("", JsonFilePathContracts3);
+
+            actualBKRData = BKRData.GetAllBKRData(Constants.SQL_CONNECTION_STRING);
+            AssertEqualBKRData(expectedBKRData, actualBKRData);
+
+            expectedRegistrations.AddRange(new[] { testData.registration14, testData.registration15, testData.registration16 });
+            actualRegistrations = Registration.GetAllRegistrations(Constants.SQL_CONNECTION_STRING);
+            AssertEqualRegistration(expectedRegistrations, actualRegistrations);
+
+        }
         private void AssertEqualBKRData(List<BKRData> expectedBKRDatas, List<BKRData> actualBKRDatas)
         {
             Assert.Equal(expectedBKRDatas.Count, actualBKRDatas.Count);

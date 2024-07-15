@@ -13,6 +13,7 @@ namespace BKRTest
     public class CustomerTests : IDisposable
     {
         private const string JsonFilePath = @"C:\\Users\\kevin\\source\\repos\\BKR\\BKR\\Files\\customers.json";
+        private const string JsonFilePath2 = @"C:\\Users\\kevin\\source\\repos\\BKR\\BKR\\Files\\customers update.json";
 
         // This method runs before each test
         public CustomerTests()
@@ -34,18 +35,34 @@ namespace BKRTest
             CleanupDatabase();
 
             TestData testData = new TestData();
-            // Set up expected results
+            
+            // File with 3 new customers
             List<Customer> expectedCustomers = new() {testData.customer1, testData.customer2, testData.customer3};
 
             // Load customers from JSON file
             List<Customer> actualCustomers = Customer.LoadCustomersFromJson(JsonFilePath);
             AssertEqualCustomers(expectedCustomers, actualCustomers);
             
-            // Save customers to the database
+            // Save and retrieve customers
             Customer.SaveCustomersToDatabase(expectedCustomers, Constants.SQL_CONNECTION_STRING);
-            // Retrieve customers from the database
             actualCustomers = Customer.GetAllCustomers(Constants.SQL_CONNECTION_STRING);
             AssertEqualCustomers(expectedCustomers, actualCustomers);
+
+            // File with one new and one amended customer
+            testData.customer1.Woonplaats = "DEN HAAG";
+            testData.customer1.Straat = "Schapenlaan";
+            testData.customer1.Postcode = "2512";
+            testData.customer1.Alfanumeriek2 = "HT";
+            testData.customer1.Huisnummer = "111";
+            expectedCustomers = new() { testData.customer1, testData.customer4 };
+            actualCustomers = Customer.LoadCustomersFromJson(JsonFilePath2);
+            AssertEqualCustomers(expectedCustomers, actualCustomers);
+
+            // Save and retrieve customers
+            expectedCustomers = new() { testData.customer1, testData.customer2, testData.customer3, testData.customer4 };
+            Customer.SaveCustomersToDatabase(expectedCustomers, Constants.SQL_CONNECTION_STRING);
+            actualCustomers = Customer.GetAllCustomers(Constants.SQL_CONNECTION_STRING); AssertEqualCustomers(expectedCustomers, actualCustomers);
+
         }
         private void AssertEqualCustomers(List<Customer> expectedCustomers, List<Customer> actualCustomers)
         {
